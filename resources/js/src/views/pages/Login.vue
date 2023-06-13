@@ -27,7 +27,7 @@
               <b-img :src="logoUrl" style="height:28px" /> {{appName}}
             </b-card-title>
             <b-card-text class="my-1">
-              Silahkan login untuk dapat mengakses Aplikasi
+              {{appTitle}}
             </b-card-text>
           </div>
           <!-- form -->
@@ -73,12 +73,12 @@
               </b-button>
             </b-form>
           </validation-observer>
-          <!--b-card-text class="text-center mt-2">
-            <span>Penggguna Baru? </span>
+          <b-card-text class="text-center mt-2">
+            <span>Daftar Alumni </span>
             <b-link :to="{name:'auth-register'}">
-              <span>&nbsp;Register Disini</span>
+              <span>&nbsp;Klik Disini</span>
             </b-link>
-          </b-card-text-->
+          </b-card-text>
         </b-col>
       </b-col>
       <!-- /Login-->
@@ -177,8 +177,10 @@ export default {
       return this.sideImg*/
     },
     appName(){
-      console.log('login:', app_name);
       return app_name;
+    },
+    appTitle(){
+      return app_title;
     },
     logoUrl(){
       return this.logoImg

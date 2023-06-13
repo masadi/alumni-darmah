@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\AlumniController;
+use App\Http\Controllers\WilayahController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,8 +15,12 @@ use App\Http\Controllers\PageController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('no-access', [PageController::class, 'no_access'])->name('login');
-Route::post('webhook', [PageController::class, 'webhook']);
+//Route::get('no-access', [PageController::class, 'no_access'])->name('login');
+Route::get('/provinsi', [WilayahController::class, 'provinsi']);
+Route::post('/kabupaten', [WilayahController::class, 'kabupaten']);
+Route::post('/kecamatan', [WilayahController::class, 'kecamatan']);
+Route::post('/desa', [WilayahController::class, 'desa']);
+Route::post('register', [AlumniController::class, 'register']);
 Route::group(['prefix' => 'auth'], function () {
   Route::get('/semester', [AuthController::class, 'semester']);
   Route::post('login', [AuthController::class, 'login']);
@@ -26,10 +31,8 @@ Route::group(['prefix' => 'auth'], function () {
   });
 });
 Route::group(['middleware' => 'auth:sanctum'], function () {
-  Route::group(['prefix' => 'dashboard'], function () {
-    Route::get('/', [PageController::class, 'list_data']);
-    Route::post('/store', [PageController::class, 'store']);
-    Route::post('/destroy', [PageController::class, 'destroy']);
+  Route::group(['prefix' => 'alumni'], function () {
+    Route::get('/', [AlumniController::class, 'index']);
   });
   Route::group(['prefix' => 'users'], function () {
     Route::get('/profil', [AuthController::class, 'profil']);

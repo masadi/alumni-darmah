@@ -1,24 +1,18 @@
 export default [
   {
     path: '/dashboard',
-    name: 'beranda',
+    name: 'dashboard',
     component: () => import('@/views/dashboard/Index.vue'),
     meta: {
       resource: 'Web',
       action: 'read',
-      pageTitle: 'Home',
+      pageTitle: 'Dashboard',
       breadcrumb: [
         {
-          text: 'Home',
+          text: 'Dashboard',
           active: true,
         },
       ],
-      tombol_add: {
-        action: 'add-modal',
-        link: '',
-        variant: 'success',
-        text: 'Add New'
-      },
     },
   },
   {
@@ -112,17 +106,17 @@ export default [
       pageTitle: 'Login Pengguna',
     },
   },
-  /*{
+  {
     path: '/register',
     name: 'auth-register',
     component: () => import('@/views/pages/Register.vue'),
     meta: {
       layout: 'full',
       resource: 'Auth',
-      redirectIfLoggedIn: true,
+      //redirectIfLoggedIn: true,
       pageTitle: 'Registrasi Pengguna',
     },
-  },*/
+  },
   {
     path: '/logout',
     name: 'logout',

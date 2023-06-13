@@ -17,8 +17,7 @@
           </div>
         </template>
         <template v-slot:cell(actions)="row">
-          <a @click="getDetil(row.item, 'edit')"><b-icon-pencil-square variant="success" font-scale="1.5" />&nbsp;&nbsp;</a>
-          <a @click="getDetil(row.item, 'delete')"><b-icon-trash variant="danger" font-scale="1.5" /></a>
+          <a @click="getDetil(row.item, 'detil')"><b-icon-eye variant="success" font-scale="1.5" />&nbsp;&nbsp;</a>
         </template>
       </b-table>
     </b-overlay>

@@ -15,19 +15,10 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   },
   routes: [
-    /*{ 
+    { 
       path: '/', 
       redirect: { name: 'dashboard' },
-    },*/
-    /*{
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/views/dashboard/Index.vue'),
-      meta: {
-        resource: 'Web',
-        action: 'read',
-      }
-    },*/
+    },
     ...pages,
     {
       path: '*',
@@ -39,7 +30,7 @@ const router = new VueRouter({
 router.beforeEach((to, _, next) => {
   const isLoggedIn = isUserLoggedIn()
   const title = to.meta.pageTitle
-  document.title = app_name
+  document.title = app_title
   if (title) {
     document.title = `${title} | ${document.title}`
   }

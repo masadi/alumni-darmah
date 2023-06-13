@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $user = User::updateOrCreate(
             [
-                'email' => 'admin@email.com'
+                'email' => 'admin@darulkaromah.com'
             ],
             [
                 'name' => 'Administrator',

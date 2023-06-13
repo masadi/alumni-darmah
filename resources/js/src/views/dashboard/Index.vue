@@ -1,22 +1,8 @@
 <template>
   <b-card>
     <datatable :loading="loading_modal" :isBusy="isBusy" :items="items" :fields="fields" :meta="meta" @per_page="handlePerPage" @pagination="handlePagination" @search="handleSearch" @sort="handleSort" @action="handleAction" />
-    <b-modal ref="add-modal" size="xl" :title="title" @ok="handleOk" :ok-title="ok_title" cancel-title="Close">
-      <b-form @submit.prevent="handleSubmit">
-        <b-row>
-          <b-col cols="12">
-            <b-form-group label="Page Title" :invalid-feedback="feedback.title" :state="state.title">
-              <b-form-input v-model="form.title" :state="state.title" />
-            </b-form-group>
-          </b-col>
-          <b-col cols="12">
-            <b-form-group label="Page Content" :invalid-feedback="feedback.content" :state="state.content">
-              <!--b-form-input v-model="form.content" :state="state.content" /-->
-              <vue-editor v-model="form.content" :state="state.content" :editorToolbar="customToolbar"/>
-            </b-form-group>
-          </b-col>
-        </b-row>
-      </b-form>
+    <b-modal ref="view-modal" size="xl" :title="title" :ok-title="ok_title" ok-only>
+      detil modal
     </b-modal>
     
   </b-card>
@@ -25,9 +11,7 @@
 <script>
 import { BCard, BButton, BRow, BCol, BForm, BFormGroup, BFormInput, BOverlay, BAlert } from 'bootstrap-vue'
 import Datatable from './Datatable.vue' //IMPORT COMPONENT DATATABLENYA
-//import socket from '@/services/socketService';
-import eventBus from '@core/utils/eventBus';
-import { VueEditor, Quill } from "vue2-editor";
+
 export default {
   components: {
     BCard,
@@ -35,28 +19,47 @@ export default {
     BRow, 
     BCol, 
     BForm, BFormGroup, BFormInput, BOverlay, BAlert,
-    Datatable,
-    VueEditor
+    Datatable
   },
   data() {
     return {
-      title: 'Add New Page',
-      ok_title: 'Save',
+      title: '',
+      ok_title: 'Tutup',
       loading_modal: false,
       isBusy: true,
       fields: [
         {
-          key: 'id',
-          label: 'ID',
+          key: 'nama',
+          label: 'Nama Lengkap',
           sortable: true,
           thClass: 'text-center',
-          tdClass: 'text-center'
         },
         {
-          key: 'title',
-          label: 'Title',
+          key: 'nik',
+          label: 'NIK',
           sortable: true,
           thClass: 'text-center',
+          tdClass: 'text-center',
+        },
+        {
+          key: 'ttl',
+          label: 'Tempat, Tanggal Lahir',
+          sortable: true,
+          thClass: 'text-center',
+        },
+        {
+          key: 'tahun_masuk',
+          label: 'Tahun Masuk',
+          sortable: true,
+          thClass: 'text-center',
+          tdClass: 'text-center',
+        },
+        {
+          key: 'tahun_keluar',
+          label: 'Tahun Keluar',
+          sortable: true,
+          thClass: 'text-center',
+          tdClass: 'text-center',
         },
         {
           key: 'actions',
@@ -69,43 +72,14 @@ export default {
       items: [],
       meta: {},
       current_page: 1, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
-      per_page: 10, //DEFAULT LOAD PERPAGE ADALAH 10
+      per_page: 25, //DEFAULT LOAD PERPAGE ADALAH 10
       search: '',
-      sortBy: 'id', //DEFAULT SORTNYA ADALAH CREATED_AT
+      sortBy: 'nama', //DEFAULT SORTNYA ADALAH CREATED_AT
       sortByDesc: false, //ASCEDING
-      form: {
-        id: '',
-        title: '',
-        content: '',
-      },
-      state: {
-        title: null,
-        content: null,
-      },
-      feedback: {
-        title: '',
-        content: '',
-      },
-      customToolbar: [
-        [{ font: [] }],
-        [{ header: [false, 1, 2, 3, 4, 5, 6] }],
-        //["bold", "italic", "underline", "strike"],
-            [{ align: [] }],
-            ["blockquote", "code-block"],
-            [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-            [{ indent: "-1" }, { indent: "+1" }],
-            [{ color: [] }, { background: [] }],
-            ["link", "image", "video"],
-            ["clean"],
-            ["showHtml"]
-      ],
     }
   },
   created() {
     this.loadPostsData()
-    eventBus.$on('add-modal', () => {
-      this.$refs['add-modal'].show()
-    });
   },
   methods: {
     loadPostsData() {
@@ -113,7 +87,7 @@ export default {
       //let current_page = this.search == '' ? this.current_page : this.current_page != 1 ? 1 : this.current_page
       let current_page = this.current_page//this.search == '' ? this.current_page : 1
       //LAKUKAN REQUEST KE API UNTUK MENGAMBIL DATA POSTINGAN
-      this.$http.get('/dashboard', {
+      this.$http.get('/alumni', {
         params: {
           user_id: this.user.id,
           page: current_page,
@@ -202,7 +176,7 @@ export default {
       if(data.aksi == 'edit'){
         this.title = 'Update Data'
         this.ok_title = 'Update'
-        this.$refs['add-modal'].show()
+        this.$refs['view-modal'].show()
       }
       if(data.aksi == 'delete'){
         this.handleDelete()
@@ -231,7 +205,7 @@ export default {
               confirmButton: 'btn btn-success',
             },
           }).then(result => {
-            this.$refs['add-modal'].hide()
+            this.$refs['view-modal'].hide()
             this.loadPostsData()
           })
         }

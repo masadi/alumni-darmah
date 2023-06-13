@@ -15,10 +15,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'e-Rapor SMK'),
-    'version' => env('APP_VERSION', '7.0.0'),
-    'webhook_url' => env('WEBHOOK_URL', 'http://localhost:4000'),
-    'whatsapp_id' => env('WHATSAPP_ID', 'wahyu'),
+    'name' => env('APP_NAME', ''),
+    'title' => env('APP_TITLE', ''),
+    'version' => env('APP_VERSION', '1.0.0'),
 
     /*
     |--------------------------------------------------------------------------

@@ -45,7 +45,7 @@
     var app_url = '{{ url('/') }}';
     var app_version = '1.0.0';
     var app_name = '{{config('app.name')}}';
-    var app_registration = false;
+    var app_title = '{{config('app.title')}}';
   </script>    
   <script src="{{ asset(mix('js/app.js')) }}"></script>
 
