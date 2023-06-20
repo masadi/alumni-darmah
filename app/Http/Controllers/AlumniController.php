@@ -8,7 +8,7 @@ use App\Models\Alumni;
 class AlumniController extends Controller
 {
     public function index(){
-        $data = Alumni::orderBy(request()->sortby, request()->sortbydesc)
+        $data = Alumni::with('desa', 'kecamatan', 'kabupaten', 'provinsi')->orderBy(request()->sortby, request()->sortbydesc)
         ->when(request()->q, function($query) {
             $query->where('nama', 'ILIKE', '%' . request()->q . '%');
             $query->orWhere('nik', 'ILIKE', '%' . request()->q . '%');

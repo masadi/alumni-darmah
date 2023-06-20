@@ -16,6 +16,9 @@
             <strong>Loading...</strong>
           </div>
         </template>
+        <template v-slot:cell(ttl)="row">
+          {{row.item.tempat_lahir}}, {{row.item.tanggal_lahir_str}}
+        </template>
         <template v-slot:cell(actions)="row">
           <a @click="getDetil(row.item, 'detil')"><b-icon-eye variant="success" font-scale="1.5" />&nbsp;&nbsp;</a>
         </template>

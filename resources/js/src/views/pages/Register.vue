@@ -181,7 +181,7 @@ export default {
       data_kabupaten: [],
       data_kecamatan: [],
       data_desa: [],
-      logoImg: require('@/assets/images/logo/logo.png'),
+      logoImg: '/images/logo/logo.png',
     }
   },
   computed: {

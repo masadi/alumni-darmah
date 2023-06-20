@@ -11,7 +11,7 @@ export const $themeConfig = {
     appName: process.env.MIX_APP_NAME, // Will update name in navigation menu (Branding)
     appVersion: app_version, // Will update name in navigation menu (Branding)
     // eslint-disable-next-line global-require
-    appLogoImage: require('@/assets/images/logo/logo.png'), // Will update logo in navigation menu (Branding)
+    appLogoImage: '/images/logo/logo.png', // Will update logo in navigation menu (Branding)
   },
   layout: {
     isRTL: false,

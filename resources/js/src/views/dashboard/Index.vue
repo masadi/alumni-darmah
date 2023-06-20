@@ -1,15 +1,60 @@
 <template>
   <b-card>
     <datatable :loading="loading_modal" :isBusy="isBusy" :items="items" :fields="fields" :meta="meta" @per_page="handlePerPage" @pagination="handlePagination" @search="handleSearch" @sort="handleSort" @action="handleAction" />
-    <b-modal ref="view-modal" size="xl" :title="title" :ok-title="ok_title" ok-only>
-      detil modal
+    <b-modal ref="view-modal" size="lg" :title="title" :ok-title="ok_title" ok-only>
+      <b-table-simple bordered responsive v-if="detilData">
+        <b-tr>
+          <b-td>Nama</b-td>
+          <b-td>{{detilData.nama}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Tempat, Tanggal Lahir</b-td>
+          <b-td>{{`${detilData.tempat_lahir}, ${detilData.tanggal_lahir_str}`}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>NIK</b-td>
+          <b-td>{{detilData.nik}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>No. Handphone</b-td>
+          <b-td>{{detilData.hp}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Alamat</b-td>
+          <b-td>{{detilData.alamat}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Desa/Kelurahan</b-td>
+          <b-td>{{(detilData.desa) ? detilData.desa.name : ''}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Kecamatan</b-td>
+          <b-td>{{(detilData.kecamatan) ? detilData.kecamatan.name : ''}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Kabupaten/Kota</b-td>
+          <b-td>{{(detilData.kabupaten) ? detilData.kabupaten.name : ''}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Provinsi</b-td>
+          <b-td>{{(detilData.provinsi) ? detilData.provinsi.name : ''}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Tahun Masuk</b-td>
+          <b-td>{{detilData.tahun_masuk}}</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>Tahun Keluar</b-td>
+          <b-td>{{detilData.tahun_keluar}}</b-td>
+        </b-tr>
+      </b-table-simple>
     </b-modal>
     
   </b-card>
 </template>
 
 <script>
-import { BCard, BButton, BRow, BCol, BForm, BFormGroup, BFormInput, BOverlay, BAlert } from 'bootstrap-vue'
+import { BCard, BButton, BRow, BCol, BForm, BFormGroup, BFormInput, BOverlay, BAlert, BTableSimple, BTr, BTd } from 'bootstrap-vue'
 import Datatable from './Datatable.vue' //IMPORT COMPONENT DATATABLENYA
 
 export default {
@@ -18,11 +63,12 @@ export default {
     BButton,
     BRow, 
     BCol, 
-    BForm, BFormGroup, BFormInput, BOverlay, BAlert,
+    BForm, BFormGroup, BFormInput, BOverlay, BAlert, BTableSimple, BTr, BTd,
     Datatable
   },
   data() {
     return {
+      detilData: null,
       title: '',
       ok_title: 'Tutup',
       loading_modal: false,
@@ -170,9 +216,12 @@ export default {
       })
     },
     handleAction(data){
-      this.form.id = data.item.id
-      this.form.title = data.item.title
-      this.form.content = data.item.content
+      this.detilData = data.item
+      if(data.aksi == 'detil'){
+        this.title = `Detil Biodata ${data.item.nama}`
+        this.ok_title = 'Tutup'
+        this.$refs['view-modal'].show()
+      }
       if(data.aksi == 'edit'){
         this.title = 'Update Data'
         this.ok_title = 'Update'

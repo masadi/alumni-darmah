@@ -154,9 +154,9 @@ export default {
       password: '',
       userEmail: '',
       semester_id: '',
-      sideImg: require('@/assets/images/pages/bg_login.png'),
-      logoImg: require('@/assets/images/logo/logo.png'),
-      //sideImg: require('@/assets/images/pages/login-v2.svg'),
+      sideImg: '/images/pages/bg_login.png',
+      logoImg: '/images/logo/logo.png',
+      //sideImg: '/images/pages/login-v2.svg'),
       // validation rules
       required,
       email,
@@ -171,7 +171,7 @@ export default {
     imgUrl() {
       return this.sideImg
       /*if (store.state.appConfig.layout.skin === 'dark') {
-        this.sideImg = require('@/assets/images/pages/login-v2-dark.svg')
+        this.sideImg = '/images/pages/login-v2-dark.svg')
         return this.sideImg
       }
       return this.sideImg*/
